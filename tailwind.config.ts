@@ -49,13 +49,6 @@ export default {
         "ink-faint": "hsl(var(--ink-faint))",
         "ink-medium": "hsl(var(--ink-medium))",
         "ink-strong": "hsl(var(--ink-strong))",
-        io: {
-          horizon: "hsl(var(--io-horizon))",
-          spectrum: "hsl(var(--io-spectrum))",
-          sear: "hsl(var(--io-sear))",
-          power: "hsl(var(--io-power))",
-          blush: "hsl(var(--io-blush))",
-        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
