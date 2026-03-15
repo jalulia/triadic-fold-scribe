@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Lekton:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,52 +6,65 @@
 
 @layer base {
   :root {
-    --background: 50 33% 97%;
-    --foreground: 0 0% 13%;
+    /* IO Brand: cream substrate */
+    --background: 37 33% 94%;
+    --foreground: 0 0% 4%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 13%;
+    --card-foreground: 0 0% 4%;
 
-    --popover: 50 33% 97%;
-    --popover-foreground: 0 0% 13%;
+    --popover: 37 33% 94%;
+    --popover-foreground: 0 0% 4%;
 
-    --primary: 0 0% 13%;
-    --primary-foreground: 50 33% 97%;
+    --primary: 0 0% 4%;
+    --primary-foreground: 37 33% 94%;
 
-    --secondary: 50 10% 92%;
-    --secondary-foreground: 0 0% 13%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 37 33% 94%;
 
-    --muted: 50 8% 88%;
+    --muted: 37 10% 88%;
     --muted-foreground: 0 0% 42%;
 
-    --accent: 54 100% 45%;
-    --accent-foreground: 0 0% 10%;
+    /* Yellow stays primary accent — the banana identity */
+    --accent: 54 100% 50%;
+    --accent-foreground: 0 0% 4%;
 
+    /* IO prismatic touches — used sparingly */
     --accent-green: 151 100% 38%;
-    --accent-green-foreground: 0 0% 10%;
+    --accent-green-foreground: 0 0% 4%;
+    --io-horizon: 224 90% 60%;
+    --io-spectrum: 203 90% 62%;
+    --io-sear: 16 90% 58%;
+    --io-power: 339 72% 48%;
+    --io-blush: 0 82% 79%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 50 8% 78%;
-    --input: 50 8% 78%;
-    --ring: 54 100% 45%;
+    --border: 37 8% 78%;
+    --input: 37 8% 78%;
+    --ring: 54 100% 50%;
 
     --radius: 0px;
 
-    --ink-faint: 50 6% 78%;
+    --ink-faint: 37 6% 78%;
     --ink-medium: 0 0% 42%;
-    --ink-strong: 0 0% 28%;
-    --accent-yellow-glow: 54 100% 45% / 0.35;
+    --ink-strong: 0 0% 20%;
+    --accent-yellow-glow: 54 100% 50% / 0.35;
     --accent-green-glow: 151 100% 38% / 0.25;
 
-    /* Grid system */
-    --grid-unit: 40px;
-    --grid-color: 50 6% 85%;
-    --grid-color-strong: 50 6% 78%;
+    /* Grid: 44px (IO standard) */
+    --grid-unit: 44px;
+    --grid-color: 37 6% 86%;
+    --grid-color-strong: 37 6% 80%;
 
+    /* IO Typography */
+    --font-display: 'Montserrat', sans-serif;
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --font-mono: 'Lekton', ui-monospace, monospace;
+
+    /* Prismatic gradient */
+    --prismatic: linear-gradient(90deg, #CE2867 0%, #F46138 30%, #F4A0A0 50%, #2C9FF4 75%, #3D6DF4 100%);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -70,21 +83,22 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-sans);
+  .font-display {
+    font-family: var(--font-display);
   }
 
-  code, pre, .font-mono {
+  .font-mono {
     font-family: var(--font-mono);
   }
 }
 
-/* Page-level grid substrate */
+/* Page-level grid substrate — 44px IO grid */
 .page-grid {
   background-image:
     linear-gradient(hsl(var(--grid-color)) 1px, transparent 1px),
@@ -93,7 +107,6 @@
   background-position: 0 0;
 }
 
-/* Stronger grid lines every 4 units */
 .page-grid::before {
   content: '';
   position: fixed;
@@ -105,7 +118,25 @@
   background-position: 0 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.35;
+}
+
+/* Prismatic gradient bar */
+.prismatic-bar {
+  height: 3px;
+  background: var(--prismatic);
+}
+
+/* Noise texture (IO brand) */
+.noise-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="n"><feTurbulence baseFrequency="0.9" numOctaves="4"/></filter><rect width="200" height="200" filter="url(%23n)" opacity="0.5"/></svg>');
+  background-size: 100px;
+  pointer-events: none;
+  z-index: 2;
 }
 
 @media (prefers-reduced-motion: reduce) {
