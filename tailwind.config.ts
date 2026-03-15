@@ -49,6 +49,7 @@ export default {
         },
         "ink-faint": "hsl(var(--ink-faint))",
         "ink-medium": "hsl(var(--ink-medium))",
+        "ink-strong": "hsl(var(--ink-strong))",
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
