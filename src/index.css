@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Lekton:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,53 +6,57 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 7%;
+    /* IO Brand: warm cream substrate */
+    --background: 37 33% 94%;
+    --foreground: 0 0% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
+    --card-foreground: 0 0% 8%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
+    --popover: 37 33% 94%;
+    --popover-foreground: 0 0% 8%;
 
-    --primary: 0 0% 7%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 8%;
+    --primary-foreground: 37 33% 94%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 7%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 37 33% 94%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 33%;
+    --muted: 37 10% 88%;
+    --muted-foreground: 0 0% 38%;
 
-    /* Yellow accent — used sparingly, like volt */
+    /* Yellow — the only accent */
     --accent: 54 100% 50%;
-    --accent-foreground: 0 0% 7%;
+    --accent-foreground: 0 0% 8%;
 
-    /* Green — fold-back only */
+    /* Green kept for fold-back viz only */
     --accent-green: 151 100% 38%;
-    --accent-green-foreground: 0 0% 7%;
+    --accent-green-foreground: 0 0% 8%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 83%;
-    --input: 0 0% 83%;
-    --ring: 0 0% 7%;
+    --border: 37 8% 82%;
+    --input: 37 8% 82%;
+    --ring: 54 100% 50%;
 
-    --radius: 2px;
+    --radius: 0px;
 
-    /* Ink hierarchy */
-    --ink-faint: 0 0% 67%;
-    --ink-medium: 0 0% 33%;
-    --ink-strong: 0 0% 20%;
+    --ink-faint: 37 6% 80%;
+    --ink-medium: 0 0% 38%;
+    --ink-strong: 0 0% 22%;
+    --accent-yellow-glow: 54 100% 50% / 0.25;
+    --accent-green-glow: 151 100% 38% / 0.2;
 
-    --accent-yellow-glow: 54 100% 50% / 0.07;
-    --accent-green-glow: 151 100% 38% / 0.07;
+    /* Grid: very faint */
+    --grid-unit: 44px;
+    --grid-color: 37 6% 90%;
+    --grid-color-strong: 37 6% 86%;
 
     /* Typography */
-    --font-display: 'DM Sans', -apple-system, sans-serif;
-    --font-sans: 'DM Sans', -apple-system, sans-serif;
-    --font-mono: 'Courier Prime', ui-monospace, monospace;
+    --font-display: 'Montserrat', sans-serif;
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'Lekton', ui-monospace, monospace;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -73,8 +77,6 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
-    font-size: 15px;
-    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -86,6 +88,27 @@
   .font-mono {
     font-family: var(--font-mono);
   }
+}
+
+/* Page-level grid — barely visible, like engineering paper */
+.page-grid {
+  background-image:
+    linear-gradient(hsl(var(--grid-color)) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--grid-color)) 1px, transparent 1px);
+  background-size: var(--grid-unit) var(--grid-unit);
+  background-position: 0 0;
+}
+
+/* Noise texture */
+.noise-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="n"><feTurbulence baseFrequency="0.9" numOctaves="4"/></filter><rect width="200" height="200" filter="url(%23n)" opacity="0.5"/></svg>');
+  background-size: 100px;
+  pointer-events: none;
+  z-index: 2;
 }
 
 @media (prefers-reduced-motion: reduce) {

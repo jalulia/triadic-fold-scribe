@@ -71,7 +71,7 @@ const BananaScaleViz = () => {
       <ReadoutPanel x={12} y={354} w={184} h={36}>
         <text x="24" y="376" fill={VIZ.inkStrong} fontSize="10" fontFamily={VIZ.mono}>MEASURED: {matched.length} / 3</text>
         {[0, 1, 2].map((i) => (
-          <rect key={i} x={152 + i * 14} y={362} width="10" height="10" fill={i < matched.length ? VIZ.yellow : VIZ.ruleDim} stroke={VIZ.inkStrong} strokeWidth="1" />
+          <rect key={i} x={152 + i * 14} y={362} width="10" height="10" fill={i < matched.length ? VIZ.yellow : VIZ.gridColor} stroke={VIZ.inkStrong} strokeWidth="1" />
         ))}
       </ReadoutPanel>
     </svg>
