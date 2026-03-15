@@ -36,69 +36,59 @@ const TRPViz = () => {
 
   return (
     <svg ref={svgRef} viewBox="0 0 600 400" className="h-full w-full">
-      {/* Grid */}
-      {Array.from({ length: 13 }, (_, i) => (
-        <line key={`v${i}`} x1={i * 50} y1="0" x2={i * 50} y2="400" stroke="hsl(50, 8%, 88%)" strokeWidth="0.5" />
+      {/* Grid — 40px aligned */}
+      {Array.from({ length: 16 }, (_, i) => (
+        <line key={`v${i}`} x1={i * 40} y1="0" x2={i * 40} y2="400" stroke="hsl(50, 6%, 85%)" strokeWidth="0.5" />
       ))}
-      {Array.from({ length: 9 }, (_, i) => (
-        <line key={`h${i}`} x1="0" y1={i * 50} x2="600" y2={i * 50} stroke="hsl(50, 8%, 88%)" strokeWidth="0.5" />
+      {Array.from({ length: 11 }, (_, i) => (
+        <line key={`h${i}`} x1="0" y1={i * 40} x2="600" y2={i * 40} stroke="hsl(50, 6%, 85%)" strokeWidth="0.5" />
+      ))}
+      {[0, 160, 320, 480].map((x) => (
+        <line key={`sv${x}`} x1={x} y1="0" x2={x} y2="400" stroke="hsl(50, 6%, 78%)" strokeWidth="0.75" />
       ))}
 
-      {/* Distance dimension line */}
-      <line x1={a.x} y1={a.y + 40} x2={b.x} y2={b.y + 40} stroke="hsl(0, 0%, 55%)" strokeWidth="0.75" />
-      <line x1={a.x} y1={a.y + 33} x2={a.x} y2={a.y + 47} stroke="hsl(0, 0%, 55%)" strokeWidth="0.75" />
-      <line x1={b.x} y1={b.y + 33} x2={b.x} y2={b.y + 47} stroke="hsl(0, 0%, 55%)" strokeWidth="0.75" />
-      <text x={midX} y={a.y + 56} textAnchor="middle" fill="hsl(0, 0%, 45%)" fontSize="9" fontFamily="IBM Plex Mono">
+      {/* Dimension line */}
+      <line x1={a.x} y1={a.y + 44} x2={b.x} y2={b.y + 44} stroke="hsl(0, 0%, 28%)" strokeWidth="1" />
+      <line x1={a.x} y1={a.y + 36} x2={a.x} y2={a.y + 52} stroke="hsl(0, 0%, 28%)" strokeWidth="1" />
+      <line x1={b.x} y1={b.y + 36} x2={b.x} y2={b.y + 52} stroke="hsl(0, 0%, 28%)" strokeWidth="1" />
+      <text x={midX} y={a.y + 64} textAnchor="middle" fill="hsl(0, 0%, 28%)" fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">
         d = {Math.round(dist)}
       </text>
 
-      {/* Relation curve — glow */}
-      <path
-        d={`M${a.x},${a.y} Q${midX},${curveY} ${b.x},${b.y}`}
-        fill="none"
-        stroke="hsl(54, 100%, 50%)"
-        strokeWidth="10"
-        opacity="0.08"
-      />
-      {/* Relation curve — main */}
-      <path
-        d={`M${a.x},${a.y} Q${midX},${curveY} ${b.x},${b.y}`}
-        fill="none"
-        stroke="hsl(54, 100%, 50%)"
-        strokeWidth="2.5"
-      />
+      {/* Curve glow */}
+      <path d={`M${a.x},${a.y} Q${midX},${curveY} ${b.x},${b.y}`} fill="none" stroke="hsl(54, 100%, 45%)" strokeWidth="12" opacity="0.1" />
+      {/* Curve main */}
+      <path d={`M${a.x},${a.y} Q${midX},${curveY} ${b.x},${b.y}`} fill="none" stroke="hsl(54, 100%, 45%)" strokeWidth="3" />
 
-      {/* C point with crosshair */}
-      <line x1={midX - 12} y1={curveY} x2={midX + 12} y2={curveY} stroke="hsl(54, 100%, 40%)" strokeWidth="0.75" />
-      <line x1={midX} y1={curveY - 12} x2={midX} y2={curveY + 12} stroke="hsl(54, 100%, 40%)" strokeWidth="0.75" />
-      <circle cx={midX} cy={curveY} r="5" fill="hsl(54, 100%, 50%)" />
-      <text x={midX + 16} y={curveY - 6} fill="hsl(0, 0%, 35%)" fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">
-        C
-      </text>
+      {/* C crosshair */}
+      <line x1={midX - 14} y1={curveY} x2={midX + 14} y2={curveY} stroke="hsl(54, 100%, 35%)" strokeWidth="1" />
+      <line x1={midX} y1={curveY - 14} x2={midX} y2={curveY + 14} stroke="hsl(54, 100%, 35%)" strokeWidth="1" />
+      <circle cx={midX} cy={curveY} r="6" fill="hsl(54, 100%, 45%)" />
+      <text x={midX + 18} y={curveY - 8} fill="hsl(0, 0%, 13%)" fontSize="11" fontFamily="IBM Plex Mono" fontWeight="600">C</text>
 
-      {/* Point A — draggable */}
+      {/* Point A */}
       <g onMouseDown={() => setDragging("a")} className="cursor-grab">
-        <circle cx={a.x} cy={a.y} r="14" fill="transparent" />
-        <line x1={a.x - 10} y1={a.y} x2={a.x + 10} y2={a.y} stroke="hsl(0, 0%, 17%)" strokeWidth="1" />
-        <line x1={a.x} y1={a.y - 10} x2={a.x} y2={a.y + 10} stroke="hsl(0, 0%, 17%)" strokeWidth="1" />
-        <circle cx={a.x} cy={a.y} r="7" fill="hsl(0, 0%, 17%)" />
-        <text x={a.x} y={a.y - 18} textAnchor="middle" fill="hsl(0, 0%, 17%)" fontSize="11" fontFamily="IBM Plex Mono" fontWeight="600">A</text>
+        <circle cx={a.x} cy={a.y} r="16" fill="transparent" />
+        <line x1={a.x - 12} y1={a.y} x2={a.x + 12} y2={a.y} stroke="hsl(0, 0%, 13%)" strokeWidth="1.25" />
+        <line x1={a.x} y1={a.y - 12} x2={a.x} y2={a.y + 12} stroke="hsl(0, 0%, 13%)" strokeWidth="1.25" />
+        <circle cx={a.x} cy={a.y} r="8" fill="hsl(0, 0%, 13%)" />
+        <text x={a.x} y={a.y - 20} textAnchor="middle" fill="hsl(0, 0%, 13%)" fontSize="12" fontFamily="IBM Plex Mono" fontWeight="700">A</text>
       </g>
 
-      {/* Point B — draggable */}
+      {/* Point B */}
       <g onMouseDown={() => setDragging("b")} className="cursor-grab">
-        <circle cx={b.x} cy={b.y} r="14" fill="transparent" />
-        <line x1={b.x - 10} y1={b.y} x2={b.x + 10} y2={b.y} stroke="hsl(0, 0%, 17%)" strokeWidth="1" />
-        <line x1={b.x} y1={b.y - 10} x2={b.x} y2={b.y + 10} stroke="hsl(0, 0%, 17%)" strokeWidth="1" />
-        <circle cx={b.x} cy={b.y} r="7" fill="hsl(0, 0%, 17%)" />
-        <text x={b.x} y={b.y - 18} textAnchor="middle" fill="hsl(0, 0%, 17%)" fontSize="11" fontFamily="IBM Plex Mono" fontWeight="600">B</text>
+        <circle cx={b.x} cy={b.y} r="16" fill="transparent" />
+        <line x1={b.x - 12} y1={b.y} x2={b.x + 12} y2={b.y} stroke="hsl(0, 0%, 13%)" strokeWidth="1.25" />
+        <line x1={b.x} y1={b.y - 12} x2={b.x} y2={b.y + 12} stroke="hsl(0, 0%, 13%)" strokeWidth="1.25" />
+        <circle cx={b.x} cy={b.y} r="8" fill="hsl(0, 0%, 13%)" />
+        <text x={b.x} y={b.y - 20} textAnchor="middle" fill="hsl(0, 0%, 13%)" fontSize="12" fontFamily="IBM Plex Mono" fontWeight="700">B</text>
       </g>
 
-      {/* Readout panel */}
-      <rect x="20" y="20" width="140" height="60" fill="hsl(50, 33%, 97%)" stroke="hsl(50, 8%, 82%)" strokeWidth="1" />
-      <text x="30" y="38" fill="hsl(0, 0%, 55%)" fontSize="8" fontFamily="IBM Plex Mono">RELATION STATE</text>
-      <text x="30" y="56" fill="hsl(0, 0%, 17%)" fontSize="16" fontFamily="IBM Plex Mono" fontWeight="600">{descriptor}</text>
-      <text x="30" y="70" fill="hsl(0, 0%, 55%)" fontSize="8" fontFamily="IBM Plex Mono">
+      {/* Readout */}
+      <rect x="16" y="16" width="160" height="68" fill="hsl(50, 33%, 97%)" stroke="hsl(50, 6%, 78%)" strokeWidth="1.5" />
+      <text x="28" y="34" fill="hsl(0, 0%, 42%)" fontSize="9" fontFamily="IBM Plex Mono" fontWeight="500">RELATION STATE</text>
+      <text x="28" y="56" fill="hsl(0, 0%, 13%)" fontSize="18" fontFamily="IBM Plex Mono" fontWeight="700">{descriptor}</text>
+      <text x="28" y="72" fill="hsl(0, 0%, 42%)" fontSize="9" fontFamily="IBM Plex Mono" fontWeight="500">
         A({Math.round(a.x)},{Math.round(a.y)}) B({Math.round(b.x)},{Math.round(b.y)})
       </text>
     </svg>

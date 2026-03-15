@@ -8,30 +8,30 @@ interface SceneCopyProps {
 
 const SceneCopy = ({ eyebrow, hero, plain, body, index }: SceneCopyProps) => {
   return (
-    <div className="max-w-lg">
-      {/* Section number */}
-      <div className="mb-6 flex items-center gap-3">
-        <span className="font-mono text-[32px] font-semibold leading-none text-ink-faint">
+    <div className="max-w-lg relative z-10">
+      {/* Section number + rule */}
+      <div className="mb-8 flex items-center gap-4">
+        <span className="font-mono text-[36px] font-semibold leading-none text-ink-medium tracking-tight">
           {String(index).padStart(2, "0")}
         </span>
-        <span className="h-px flex-1 bg-ink-faint" />
+        <span className="h-[2px] flex-1 bg-accent" />
       </div>
       {/* Eyebrow */}
-      <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.22em] text-foreground/50 font-medium">
+      <p className="mb-6 font-mono text-[12px] uppercase tracking-[0.25em] text-ink-strong font-medium">
         {eyebrow}
       </p>
       {/* Hero */}
-      <h2 className="mb-5 text-[clamp(1.6rem,3vw,2.8rem)] font-bold leading-[1.08] tracking-tight text-foreground">
+      <h2 className="mb-6 text-[clamp(1.6rem,3vw,2.6rem)] font-bold leading-[1.1] tracking-tight text-foreground">
         {hero}
       </h2>
-      {/* Divider */}
-      <div className="mb-5 h-0.5 w-12 bg-accent" />
+      {/* Accent bar */}
+      <div className="mb-6 h-[3px] w-10 bg-accent" />
       {/* Plain */}
-      <p className="mb-4 text-[17px] leading-[1.65] text-foreground/75 font-medium">
+      <p className="mb-4 text-[16px] leading-[1.75] text-foreground/85 font-medium">
         {plain}
       </p>
       {/* Body */}
-      <p className="text-[15px] leading-[1.7] text-foreground/55">
+      <p className="text-[15px] leading-[1.75] text-ink-strong">
         {body}
       </p>
     </div>

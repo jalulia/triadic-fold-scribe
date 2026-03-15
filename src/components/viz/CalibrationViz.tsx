@@ -25,71 +25,63 @@ const CalibrationViz = () => {
 
   return (
     <svg ref={svgRef} viewBox="0 0 600 400" className="h-full w-full cursor-crosshair">
-      {/* Background grid */}
-      {Array.from({ length: 13 }, (_, i) => (
-        <line key={`v${i}`} x1={i * 50} y1="0" x2={i * 50} y2="400" stroke="hsl(50, 8%, 88%)" strokeWidth="0.5" />
+      {/* Background grid — subtle, matches page grid */}
+      {Array.from({ length: 16 }, (_, i) => (
+        <line key={`v${i}`} x1={i * 40} y1="0" x2={i * 40} y2="400" stroke="hsl(50, 6%, 85%)" strokeWidth="0.5" />
       ))}
-      {Array.from({ length: 9 }, (_, i) => (
-        <line key={`h${i}`} x1="0" y1={i * 50} x2="600" y2={i * 50} stroke="hsl(50, 8%, 88%)" strokeWidth="0.5" />
+      {Array.from({ length: 11 }, (_, i) => (
+        <line key={`h${i}`} x1="0" y1={i * 40} x2="600" y2={i * 40} stroke="hsl(50, 6%, 85%)" strokeWidth="0.5" />
+      ))}
+      {/* Stronger grid every 4 */}
+      {[0, 160, 320, 480].map((x) => (
+        <line key={`sv${x}`} x1={x} y1="0" x2={x} y2="400" stroke="hsl(50, 6%, 78%)" strokeWidth="0.75" />
+      ))}
+      {[0, 160, 320].map((y) => (
+        <line key={`sh${y}`} x1="0" y1={y} x2="600" y2={y} stroke="hsl(50, 6%, 78%)" strokeWidth="0.75" />
       ))}
 
-      {/* Axis markers */}
-      {[100, 200, 300, 400, 500].map((x) => (
-        <text key={x} x={x} y="395" textAnchor="middle" fill="hsl(0, 0%, 55%)" fontSize="8" fontFamily="IBM Plex Mono">{x}</text>
+      {/* Axis labels */}
+      {[160, 320, 480].map((x) => (
+        <text key={x} x={x} y="395" textAnchor="middle" fill="hsl(0, 0%, 42%)" fontSize="9" fontFamily="IBM Plex Mono" fontWeight="500">{x}</text>
       ))}
-      {[100, 200, 300].map((y) => (
-        <text key={y} x="8" y={y + 3} fill="hsl(0, 0%, 55%)" fontSize="8" fontFamily="IBM Plex Mono">{y}</text>
+      {[160, 320].map((y) => (
+        <text key={y} x="12" y={y + 3} fill="hsl(0, 0%, 42%)" fontSize="9" fontFamily="IBM Plex Mono" fontWeight="500">{y}</text>
       ))}
 
-      {/* Reference crosshairs at A and B */}
-      <line x1={ax - 15} y1={ay} x2={ax + 15} y2={ay} stroke="hsl(0, 0%, 17%)" strokeWidth="0.75" />
-      <line x1={ax} y1={ay - 15} x2={ax} y2={ay + 15} stroke="hsl(0, 0%, 17%)" strokeWidth="0.75" />
-      <line x1={bx - 15} y1={by} x2={bx + 15} y2={by} stroke="hsl(0, 0%, 17%)" strokeWidth="0.75" />
-      <line x1={bx} y1={by - 15} x2={bx} y2={by + 15} stroke="hsl(0, 0%, 17%)" strokeWidth="0.75" />
+      {/* Crosshairs at A and B */}
+      <line x1={ax - 16} y1={ay} x2={ax + 16} y2={ay} stroke="hsl(0, 0%, 13%)" strokeWidth="1" />
+      <line x1={ax} y1={ay - 16} x2={ax} y2={ay + 16} stroke="hsl(0, 0%, 13%)" strokeWidth="1" />
+      <line x1={bx - 16} y1={by} x2={bx + 16} y2={by} stroke="hsl(0, 0%, 13%)" strokeWidth="1" />
+      <line x1={bx} y1={by - 16} x2={bx} y2={by + 16} stroke="hsl(0, 0%, 13%)" strokeWidth="1" />
 
-      {/* Relation curve — thick, visible */}
-      <path
-        d={`M${ax},${ay} Q${cx},${cy} ${bx},${by}`}
-        fill="none"
-        stroke="hsl(54, 100%, 50%)"
-        strokeWidth="2.5"
-      />
-      {/* Shadow curve for depth */}
-      <path
-        d={`M${ax},${ay} Q${cx},${cy} ${bx},${by}`}
-        fill="none"
-        stroke="hsl(54, 100%, 50%)"
-        strokeWidth="8"
-        opacity="0.08"
-      />
+      {/* Relation curve — glow */}
+      <path d={`M${ax},${ay} Q${cx},${cy} ${bx},${by}`} fill="none" stroke="hsl(54, 100%, 45%)" strokeWidth="10" opacity="0.12" />
+      {/* Relation curve — main */}
+      <path d={`M${ax},${ay} Q${cx},${cy} ${bx},${by}`} fill="none" stroke="hsl(54, 100%, 45%)" strokeWidth="3" />
 
       {/* Points */}
-      <circle cx={ax} cy={ay} r="6" fill="hsl(0, 0%, 17%)" />
-      <circle cx={bx} cy={by} r="6" fill="hsl(0, 0%, 17%)" />
-      <circle cx={cx} cy={cy} r="4" fill="hsl(54, 100%, 50%)" />
+      <circle cx={ax} cy={ay} r="7" fill="hsl(0, 0%, 13%)" />
+      <circle cx={bx} cy={by} r="7" fill="hsl(0, 0%, 13%)" />
+      <circle cx={cx} cy={cy} r="5" fill="hsl(54, 100%, 45%)" />
 
       {/* Labels */}
-      <text x={ax} y={ay + 28} textAnchor="middle" fill="hsl(0, 0%, 17%)" fontSize="11" fontFamily="IBM Plex Mono" fontWeight="500">A</text>
-      <text x={bx} y={by + 28} textAnchor="middle" fill="hsl(0, 0%, 17%)" fontSize="11" fontFamily="IBM Plex Mono" fontWeight="500">B</text>
-      <text x={cx + 14} y={cy - 8} fill="hsl(0, 0%, 40%)" fontSize="9" fontFamily="IBM Plex Mono">C ({Math.round(cx)}, {Math.round(cy)})</text>
-
-      {/* Distance readout */}
-      <rect x="420" y="20" width="160" height="44" fill="hsl(50, 33%, 97%)" stroke="hsl(50, 8%, 82%)" strokeWidth="1" />
-      <text x="430" y="36" fill="hsl(0, 0%, 55%)" fontSize="8" fontFamily="IBM Plex Mono">DISTANCE A→B</text>
-      <text x="430" y="52" fill="hsl(0, 0%, 17%)" fontSize="13" fontFamily="IBM Plex Mono" fontWeight="500">
-        {Math.round(Math.hypot(bx - ax, by - ay))} units
-      </text>
+      <text x={ax} y={ay + 30} textAnchor="middle" fill="hsl(0, 0%, 13%)" fontSize="12" fontFamily="IBM Plex Mono" fontWeight="600">A</text>
+      <text x={bx} y={by + 30} textAnchor="middle" fill="hsl(0, 0%, 13%)" fontSize="12" fontFamily="IBM Plex Mono" fontWeight="600">B</text>
+      <text x={cx + 16} y={cy - 8} fill="hsl(0, 0%, 28%)" fontSize="10" fontFamily="IBM Plex Mono" fontWeight="500">C ({Math.round(cx)}, {Math.round(cy)})</text>
 
       {/* Measurement ticks along baseline */}
       {Array.from({ length: 7 }, (_, i) => {
         const t = i / 6;
         const px = ax + (bx - ax) * t;
-        return (
-          <g key={i}>
-            <line x1={px} y1={ay - 5} x2={px} y2={ay + 5} stroke="hsl(0, 0%, 17%)" strokeWidth="0.75" />
-          </g>
-        );
+        return <line key={i} x1={px} y1={ay - 6} x2={px} y2={ay + 6} stroke="hsl(0, 0%, 13%)" strokeWidth="1" />;
       })}
+
+      {/* Readout panel */}
+      <rect x="420" y="16" width="168" height="52" fill="hsl(50, 33%, 97%)" stroke="hsl(50, 6%, 78%)" strokeWidth="1.5" />
+      <text x="432" y="34" fill="hsl(0, 0%, 42%)" fontSize="9" fontFamily="IBM Plex Mono" fontWeight="500">DISTANCE A→B</text>
+      <text x="432" y="54" fill="hsl(0, 0%, 13%)" fontSize="15" fontFamily="IBM Plex Mono" fontWeight="600">
+        {Math.round(Math.hypot(bx - ax, by - ay))} units
+      </text>
     </svg>
   );
 };
