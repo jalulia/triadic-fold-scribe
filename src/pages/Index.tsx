@@ -18,7 +18,6 @@ const Index = () => {
   const [consoleData, setConsoleData] = useState<Record<string, string>>({});
   const sceneRefs = useRef<Map<string, HTMLElement>>(new Map());
 
-  // IntersectionObserver for scene tracking
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -31,7 +30,6 @@ const Index = () => {
       },
       { threshold: 0.45 }
     );
-
     sceneRefs.current.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
@@ -45,16 +43,11 @@ const Index = () => {
 
   const renderViz = (sceneId: string) => {
     switch (sceneId) {
-      case "calibration":
-        return <CalibrationViz />;
-      case "banana-scale":
-        return <BananaScaleViz />;
-      case "trp":
-        return <TRPViz />;
-      case "fold":
-        return <FoldFieldViz />;
-      case "stability":
-        return <StabilityViz />;
+      case "calibration": return <CalibrationViz />;
+      case "banana-scale": return <BananaScaleViz />;
+      case "trp": return <TRPViz />;
+      case "fold": return <FoldFieldViz />;
+      case "stability": return <StabilityViz />;
       case "taxonomy":
         return (
           <TaxonomyViz
@@ -63,8 +56,7 @@ const Index = () => {
             }
           />
         );
-      case "fold-back":
-        return <FoldBackViz />;
+      case "fold-back": return <FoldBackViz />;
       case "writes":
         return (
           <FinalViz
@@ -73,8 +65,7 @@ const Index = () => {
             }
           />
         );
-      default:
-        return null;
+      default: return null;
     }
   };
 
@@ -94,24 +85,44 @@ const Index = () => {
         />
       </div>
 
-      <main className="lg:pl-10">
-        {SCENES.map((s) => (
+      <main className="lg:pl-12">
+        {SCENES.map((s, i) => (
           <section
             key={s.id}
             data-scene={s.id}
             ref={(el) => {
               if (el) sceneRefs.current.set(s.id, el);
             }}
-            className="flex min-h-screen items-center px-6 py-16 lg:px-12 lg:py-24"
+            className="relative flex min-h-screen items-center px-6 py-16 lg:px-12 lg:py-20"
           >
-            <div className="mx-auto grid w-full max-w-[1440px] items-center gap-12 lg:grid-cols-[minmax(18rem,32rem)_minmax(24rem,1fr)] lg:gap-16">
+            {/* Section divider line */}
+            {i > 0 && (
+              <div className="absolute left-6 right-6 top-0 lg:left-12 lg:right-12">
+                <div className="h-px bg-ink-faint" />
+                <div className="mt-2 font-mono text-[8px] uppercase tracking-[0.2em] text-foreground/25">
+                  section {String(s.index).padStart(2, "0")} of {String(SCENES.length).padStart(2, "0")}
+                </div>
+              </div>
+            )}
+
+            <div className="mx-auto grid w-full max-w-[1440px] items-center gap-10 lg:grid-cols-[minmax(18rem,28rem)_minmax(26rem,1fr)] lg:gap-20">
               <SceneCopy
                 eyebrow={s.eyebrow}
                 hero={s.hero}
                 plain={s.plain}
                 body={s.body}
+                index={s.index}
               />
-              <div className="aspect-[3/2] w-full">{renderViz(s.id)}</div>
+              <div className="relative">
+                {/* Viz frame border */}
+                <div className="absolute -inset-3 border border-ink-faint/50 pointer-events-none" />
+                {/* Corner marks */}
+                <div className="absolute -left-3 -top-3 h-3 w-3 border-l-2 border-t-2 border-foreground/15 pointer-events-none" />
+                <div className="absolute -right-3 -top-3 h-3 w-3 border-r-2 border-t-2 border-foreground/15 pointer-events-none" />
+                <div className="absolute -left-3 -bottom-3 h-3 w-3 border-l-2 border-b-2 border-foreground/15 pointer-events-none" />
+                <div className="absolute -right-3 -bottom-3 h-3 w-3 border-r-2 border-b-2 border-foreground/15 pointer-events-none" />
+                <div className="aspect-[3/2] w-full">{renderViz(s.id)}</div>
+              </div>
             </div>
           </section>
         ))}
