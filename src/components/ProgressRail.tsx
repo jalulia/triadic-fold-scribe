@@ -14,7 +14,7 @@ const ProgressRail = ({ activeScene, onSceneClick }: ProgressRailProps) => {
       aria-label="Scene progress"
     >
       {/* Vertical spine */}
-      <div className="absolute left-7 top-[calc(50%-100px)] h-[200px] w-px bg-ink-faint" />
+      <div className="absolute left-7 top-[calc(50%-110px)] h-[220px] w-px bg-ink-faint" />
 
       <div className="relative flex flex-col items-center gap-5">
         {SCENES.map((scene, i) => {
@@ -33,8 +33,8 @@ const ProgressRail = ({ activeScene, onSceneClick }: ProgressRailProps) => {
                   isActive
                     ? "h-4 w-4 bg-accent shadow-[0_0_12px_hsl(var(--accent-yellow-glow))]"
                     : isPast
-                    ? "h-2.5 w-2.5 bg-ink-strong"
-                    : "h-2 w-2 bg-ink-faint group-hover:bg-ink-medium"
+                    ? "h-2 w-2 rounded-full bg-ink-strong"
+                    : "h-1.5 w-1.5 rounded-full bg-ink-faint group-hover:bg-ink-medium"
                 }`}
               />
             </button>
@@ -42,11 +42,9 @@ const ProgressRail = ({ activeScene, onSceneClick }: ProgressRailProps) => {
         })}
       </div>
 
-      {/* Active index label */}
+      {/* ø mark at bottom */}
       <div className="absolute bottom-8 left-0 w-full text-center">
-        <span className="font-mono text-[9px] text-ink-medium font-medium">
-          {String(activeIndex + 1).padStart(2, "0")}
-        </span>
+        <span className="font-display text-[11px] font-bold text-ink-faint">ø</span>
       </div>
     </nav>
   );
