@@ -1,65 +1,55 @@
-// Shared constants for all viz SVGs — IO brand aligned
+// Shared constants for all viz SVGs — clean document style
 export const VIZ = {
-  // Grid
-  gridUnit: 44,
-  gridColor: "hsl(37, 6%, 86%)",
-  gridStrong: "hsl(37, 6%, 80%)",
-
-  // Ink
-  ink: "hsl(0, 0%, 4%)",
+  // Ink hierarchy
+  ink: "hsl(0, 0%, 7%)",
   inkStrong: "hsl(0, 0%, 20%)",
-  inkMedium: "hsl(0, 0%, 42%)",
-  inkFaint: "hsl(37, 6%, 78%)",
+  inkMedium: "hsl(0, 0%, 33%)",
+  inkFaint: "hsl(0, 0%, 67%)",
 
-  // Accent
+  // Accent — yellow, used sparingly
   yellow: "hsl(54, 100%, 50%)",
-  yellowDim: "hsl(54, 100%, 40%)",
+  yellowDim: "hsl(54, 80%, 42%)",
   green: "hsl(151, 100%, 38%)",
-  greenDim: "hsl(151, 100%, 30%)",
+  greenDim: "hsl(151, 80%, 30%)",
 
-  // Background (cream)
-  bg: "hsl(37, 33%, 94%)",
+  // Background
+  bg: "hsl(0, 0%, 96%)",
+  white: "hsl(0, 0%, 100%)",
+
+  // Rules
+  rule: "hsl(0, 0%, 83%)",
+  ruleDim: "hsl(0, 0%, 91%)",
 
   // Typography
-  mono: "Lekton, monospace",
-  display: "Montserrat, sans-serif",
+  mono: "'Courier Prime', monospace",
+  display: "'DM Sans', sans-serif",
 } as const;
 
-// Reusable SVG grid component
+// Light grid for diagram interiors — subtle dots
 export const SvgGrid = ({ w = 600, h = 400 }: { w?: number; h?: number }) => {
-  const cols = Math.ceil(w / VIZ.gridUnit) + 1;
-  const rows = Math.ceil(h / VIZ.gridUnit) + 1;
-  const strongEvery = 4;
+  const step = 40;
+  const cols = Math.ceil(w / step) + 1;
+  const rows = Math.ceil(h / step) + 1;
 
   return (
     <>
-      {Array.from({ length: cols }, (_, i) => (
-        <line
-          key={`v${i}`}
-          x1={i * VIZ.gridUnit}
-          y1="0"
-          x2={i * VIZ.gridUnit}
-          y2={h}
-          stroke={i % strongEvery === 0 ? VIZ.gridStrong : VIZ.gridColor}
-          strokeWidth={i % strongEvery === 0 ? 0.75 : 0.5}
-        />
-      ))}
-      {Array.from({ length: rows }, (_, i) => (
-        <line
-          key={`h${i}`}
-          x1="0"
-          y1={i * VIZ.gridUnit}
-          x2={w}
-          y2={i * VIZ.gridUnit}
-          stroke={i % strongEvery === 0 ? VIZ.gridStrong : VIZ.gridColor}
-          strokeWidth={i % strongEvery === 0 ? 0.75 : 0.5}
-        />
-      ))}
+      {Array.from({ length: cols }, (_, c) =>
+        Array.from({ length: rows }, (_, r) => (
+          <circle
+            key={`${c}-${r}`}
+            cx={c * step}
+            cy={r * step}
+            r="0.5"
+            fill={VIZ.inkFaint}
+            opacity="0.4"
+          />
+        ))
+      )}
     </>
   );
 };
 
-// Reusable readout panel
+// Readout panel
 export const ReadoutPanel = ({
   x, y, w, h, children,
 }: {
@@ -67,7 +57,7 @@ export const ReadoutPanel = ({
   children: React.ReactNode;
 }) => (
   <g>
-    <rect x={x} y={y} width={w} height={h} fill={VIZ.bg} stroke={VIZ.inkFaint} strokeWidth="1" />
+    <rect x={x} y={y} width={w} height={h} fill={VIZ.white} stroke={VIZ.rule} strokeWidth="1" />
     {children}
   </g>
 );
