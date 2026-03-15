@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -18,28 +18,29 @@
     --primary: 0 0% 17%;
     --primary-foreground: 50 33% 97%;
 
-    --secondary: 50 10% 90%;
+    --secondary: 50 10% 92%;
     --secondary-foreground: 0 0% 17%;
 
-    --muted: 50 10% 90%;
-    --muted-foreground: 0 0% 17% / 0.68;
+    --muted: 50 8% 88%;
+    --muted-foreground: 0 0% 35%;
 
     --accent: 54 100% 50%;
-    --accent-foreground: 0 0% 17%;
+    --accent-foreground: 0 0% 10%;
 
     --accent-green: 151 100% 45%;
-    --accent-green-foreground: 0 0% 17%;
+    --accent-green-foreground: 0 0% 10%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 50 10% 90%;
-    --input: 50 10% 90%;
+    --border: 50 12% 85%;
+    --input: 50 12% 85%;
     --ring: 54 100% 50%;
 
     --radius: 0px;
 
-    --ink-faint: 50 10% 90%;
+    --ink-faint: 50 8% 82%;
+    --ink-medium: 0 0% 55%;
     --accent-yellow-glow: 54 100% 50% / 0.28;
     --accent-green-glow: 151 100% 45% / 0.2;
 
@@ -74,6 +75,27 @@
 
   code, pre, .font-mono {
     font-family: var(--font-mono);
+  }
+}
+
+@layer utilities {
+  .scene-grid-bg {
+    background-image:
+      linear-gradient(hsl(var(--ink-faint)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--ink-faint)) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .scene-divider {
+    border-top: 1px solid hsl(var(--ink-faint));
+  }
+
+  .annotation-mark {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: hsl(var(--ink-medium));
   }
 }
 

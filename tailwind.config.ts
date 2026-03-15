@@ -48,6 +48,7 @@ export default {
           "green-glow": "hsl(var(--accent-green-glow))",
         },
         "ink-faint": "hsl(var(--ink-faint))",
+        "ink-medium": "hsl(var(--ink-medium))",
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",

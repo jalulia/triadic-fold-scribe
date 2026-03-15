@@ -4,8 +4,11 @@ interface SceneMarkerProps {
 
 const SceneMarker = ({ marker }: SceneMarkerProps) => {
   return (
-    <div className="fixed left-14 top-6 z-50 hidden font-mono text-[11px] uppercase tracking-[0.15em] text-foreground/50 lg:block">
-      {marker}
+    <div className="fixed left-16 top-6 z-50 hidden items-center gap-3 lg:flex">
+      <span className="h-px w-6 bg-foreground/20" />
+      <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/45 font-medium">
+        {marker}
+      </span>
     </div>
   );
 };
