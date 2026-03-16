@@ -70,6 +70,26 @@ const Index = () => {
       </div>
 
       <main className="relative z-10 lg:pl-14">
+        {/* ASCII Banana Header */}
+        <header className="relative flex min-h-[70vh] items-center justify-center overflow-hidden px-6 py-20">
+          <div className="relative flex flex-col items-center gap-8">
+            <img
+              src={bananaplexGif}
+              alt="ASCII art banana"
+              className="h-auto w-full max-w-[320px] opacity-80 mix-blend-multiply dark:mix-blend-screen lg:max-w-[400px]"
+            />
+            <div className="text-center">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                The Impøssible Outcomes Company
+              </p>
+            </div>
+          </div>
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+            <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-muted-foreground animate-pulse">
+              ↓ scroll
+            </span>
+          </div>
+        </header>
         {SCENES.map((s, i) => (
           <section
             key={s.id}
