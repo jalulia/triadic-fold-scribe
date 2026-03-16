@@ -4,6 +4,7 @@ import ProgressRail from "@/components/ProgressRail";
 import SceneMarker from "@/components/SceneMarker";
 import StructuralConsole from "@/components/StructuralConsole";
 import SceneCopy from "@/components/SceneCopy";
+import bananaplexGif from "@/assets/bananaplex.gif";
 import CalibrationViz from "@/components/viz/CalibrationViz";
 import BananaScaleViz from "@/components/viz/BananaScaleViz";
 import TRPViz from "@/components/viz/TRPViz";
